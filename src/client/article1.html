@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Article Un.</title>
+</head>
+<body>
+    <h3>Titre article</h3>
+    <p>Contenu article.</p>
+    <p id="commentaires"></p>
+    <script>
+    var xhr = new (window.XDomainRequest || window.XMLHttpRequest)();
+    xhr.onload = function() {
+        console.log(xhr);
+        var comz = JSON.parse(xhr.responseText);
+        console.log(comz);
+        document.getElementById("commentaires").innerHTML = xhr.responseText;
+    }
+    xhr.open("GET", "http://127.0.0.1:5000/api/lehollandaisvolant.net/123/comments");
+    xhr.send();
+    </script>
+</body>
+</html>

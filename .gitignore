@@ -1,0 +1,8 @@
+# virtualenv directory :
+src/serveur/venv/
+
+*.pyc
+*.pyo
+
+*.sublime-workspace
+*.sublime-project
