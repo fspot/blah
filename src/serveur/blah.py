@@ -1,5 +1,5 @@
-from flask import Flask
-from utils import jsoncrossdomain, ser_handler
+from flask import Flask, render_template
+from utils import jsoncrossdomain, ser_handler, request
 from database import db
 import json
 
@@ -12,7 +12,17 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return 'plop'
+    return render_template('index.html')
+
+
+@app.route('/inscription', methods=['GET'])
+def inscription_get():
+    return render_template('inscription.html')
+
+
+@app.route('/inscription', methods=['POST'])
+def inscription_post():
+    return request.form['site']
 
 
 # ==========================
