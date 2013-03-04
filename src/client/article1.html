@@ -9,15 +9,29 @@
     <p>Contenu article.</p>
     <p id="commentaires"></p>
     <script>
-    var xhr = new (window.XDomainRequest || window.XMLHttpRequest)();
-    xhr.onload = function() {
-        console.log(xhr);
-        var comz = JSON.parse(xhr.responseText);
-        console.log(comz);
-        document.getElementById("commentaires").innerHTML = xhr.responseText;
-    }
-    xhr.open("GET", "http://127.0.0.1:5000/api/lehollandaisvolant.net/123/comments");
-    xhr.send();
+    var blah_api = "http://127.0.0.1:5000/api/";
+
+    // ajax cross domain:
+    (function() {
+        var xhr = new (window.XDomainRequest || window.XMLHttpRequest)();
+        xhr.onload = function() {
+            console.log(xhr);
+            var comz = JSON.parse(xhr.responseText);
+            console.log(comz);
+            document.getElementById("commentaires").innerHTML = xhr.responseText;
+        }
+        xhr.open("GET", blah_api + "lehollandaisvolant.net/123/comments");
+        xhr.send();
+    })();
+
+    // dynamic script loading:
+    (function() {
+        var scr = document.createElement('script');
+        scr.type = 'text/javascript';
+        scr.async = true;
+        scr.src = blah_api + 'lehollandaisvolant.net/123/embed.js';
+        document.getElementsByTagName('head')[0].appendChild(scr);
+    })();
     </script>
 </body>
 </html>
