@@ -51,7 +51,7 @@ def get_comments(site, article):
 @app.route('/api/<site>/<article>/embed.js')
 def embed_js(site, article):
     # penser au mimetype javascript
-    return "alert('loul');"
+    return render_template('embed.js', site=site, article=article)
 
 
 if __name__ == "__main__":

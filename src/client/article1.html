@@ -9,19 +9,41 @@
     <p>Contenu article.</p>
     <p id="commentaires"></p>
     <script>
-    var blah_api = "http://127.0.0.1:5000/api/";
 
     // ajax cross domain:
+    // (function() {
+    //     var xhr = new (window.XDomainRequest || window.XMLHttpRequest)();
+    //     xhr.onload = function() {
+    //         console.log(xhr);
+    //         var comz = JSON.parse(xhr.responseText);
+    //         console.log(comz);
+    //         document.getElementById("commentaires").innerHTML = xhr.responseText;
+    //     }
+    //     xhr.open("GET", blah_api + "lehollandaisvolant.net/123/comments");
+    //     xhr.send();
+    // })();
+
     (function() {
-        var xhr = new (window.XDomainRequest || window.XMLHttpRequest)();
-        xhr.onload = function() {
-            console.log(xhr);
-            var comz = JSON.parse(xhr.responseText);
-            console.log(comz);
-            document.getElementById("commentaires").innerHTML = xhr.responseText;
-        }
-        xhr.open("GET", blah_api + "lehollandaisvolant.net/123/comments");
-        xhr.send();
+        window.blah = window.blah || {};
+        blah.url_api = "http://127.0.0.1:5000/api/";
+        blah.site = "nomdusite";
+        blah.article = "42";
+
+        blah.onComments = function(comments) {
+            console.log(comments);
+        };
+
+        blah.post = function(comment) {
+            var xhr = new (window.XDomainRequest || window.XMLHttpRequest)();
+            xhr.onload = function() {
+                console.log(xhr);
+                var comz = JSON.parse(xhr.responseText);
+                console.log(comz);
+                document.getElementById("commentaires").innerHTML = xhr.responseText;
+            }
+            xhr.open("POST", blah.url_api + blah.site + "/" + blah.article + "/comments");
+            xhr.send();
+        };
     })();
 
     // dynamic script loading:
