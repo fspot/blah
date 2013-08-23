@@ -16,9 +16,9 @@ def ser_handler(obj):
         raise TypeError('type %s / value %s : not JSON serializable' % (type(obj), repr(obj)))
 
 
-def jsoncrossdomain(origin=None, methods=None, headers=None,
+def crossdomain(origin=None, methods=None, headers=None,
                 max_age=21600, attach_to_all=True,
-                automatic_options=True):
+                automatic_options=True, is_json=False):
     if methods is not None:
         methods = ', '.join(sorted(x.upper() for x in methods))
     if headers is not None and not isinstance(headers, basestring):
@@ -46,7 +46,8 @@ def jsoncrossdomain(origin=None, methods=None, headers=None,
 
             h = resp.headers
 
-            h['Content-Type'] = 'application/json'
+            if is_json:
+                h['Content-Type'] = 'application/json'
 
             h['Access-Control-Allow-Origin'] = origin
             h['Access-Control-Allow-Methods'] = get_methods()
